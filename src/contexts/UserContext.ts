@@ -35,10 +35,10 @@ export function useUserContext() {
   const user = useContext(UserContext);
   const router = useRouter();
 
-  if (user.username === undefined) {
-    router.push("./");
-    // throw new Error("useUserContext must be used with a user - the user is currently undefined")
-  }
+  // if (user.username === undefined) {
+  //   router.push("./");
+  //   // throw new Error("useUserContext must be used with a user - the user is currently undefined")
+  // }
 
   return user;
 }

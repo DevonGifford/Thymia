@@ -16,7 +16,7 @@ const UsernameSchema = z.object({
     .string()
     .nonempty({ message: "⚠ Username cannot be empty" })
     .min(3, { message: "⚠ Username is too short" })
-    .max(12, { message: "⚠ Username is too long" }),
+    .max(14, { message: "⚠ Username is too long" }),
   // 🎯 prevent special characters too?
 });
 type UsernameSchemaType = z.infer<typeof UsernameSchema>;
@@ -63,13 +63,14 @@ export default function Home() {
 
   return (
     <>
+      <Heading
+        headingBlack="Welcome to the "
+        headingColor="2-back game"
+        subHeadingBlack="A technical assessment"
+        subHeadingColor="by Devon Gifford"
+      />
+
       <div className="flex flex-col gap-5 justify-center ">
-        <Heading
-          headingBlack="Welcome to the "
-          headingColor="2-back game"
-          subHeadingBlack="A technical assessment"
-          subHeadingColor="by Devon Gifford"
-        />
         <div className="flex flex-col text-center gap-1 italic text-gray-600">
           <p>
             The 2-Back game is a cognitive training exercise designed to enhance
@@ -85,7 +86,7 @@ export default function Home() {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center gap-2 pt-10"
         >
-          <h2 className="text-3x text-center font-bold pb-2 ">
+          <h2 className="text-3xl text-center font-semibold font-thymia-title pb-2 ">
             Enter your name to begin
           </h2>
 
@@ -94,7 +95,7 @@ export default function Home() {
               type="text"
               role="username-input"
               onKeyDown={() => clearErrors()}
-              className="p-2 text-black font-semibold m-1"
+              className="p-2 text-black font-semibold m-0.5 rounded-xl border-2 border-thymia-purple border-opacity-50 focus:border-thymia-purple"
               {...register("username")}
             />
 
@@ -107,6 +108,7 @@ export default function Home() {
             </span>
           )}
         </form>
+
         <div className="flex flex-row w-full text-thymia-purple pb-10 items-center justify-center text-center">
           <label className="flex cursor-pointer gap-2 items-center justify-center w-full">
             <span className="sm:text-left">
@@ -125,12 +127,12 @@ export default function Home() {
           </label>
         </div>
 
-        <div className="flex flex-col gap-6 text-center  ">
-          <h3 className="text-2xl font-bold text-thymia-purple">
+        <div className="flex flex-col gap-6 text-center border-2 border-thymia-purple rounded-xl border-opacity-40 bg-thymia-purple bg-opacity-25 p-7 sm:mx-10 md:mx-40 shadow-slate-500 shadow-2xl">
+          <h3 className="text-2xl md:text-3xl font-bold text-thymia-purple font-thymia-title">
             How to play?
           </h3>
 
-          <ul className="flex flex-col gap-3 italic text-gray-600 w-full max-w-5xl">
+          <ul className="flex flex-col gap-5 italic text-gray-600 w-full max-w-5xl">
             <li>
               In this game, you will be presented with a sequence of stimuli, in
               this case a series of letters presented every 3000 milliseconds.

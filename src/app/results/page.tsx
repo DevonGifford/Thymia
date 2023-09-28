@@ -24,11 +24,13 @@ const ResultsPage = () => {
         subHeadingColor="complete"
       />
 
-      <div className="w-full flex flex-col items-center text-center gap-3 max-w-5xl">
-        <h2 className="text-2xl md:text-3xl font-semibold text-thymia-purple">Your Results are as follows:</h2>
+      <div className="flex flex-col items-center text-center gap-3 border-2 border-thymia-purple rounded-xl border-opacity-40 bg-thymia-purple bg-opacity-25 py-10 px-20  shadow-slate-500 shadow-2xl">
+        <h2 className="text-xl md:text-3xl font-semibold text-thymia-purple">
+          Your Results
+        </h2>
 
-        <div className="">
-          <p className="flex flex-col text-center text-xl font-bold">
+        <div>
+          <p className="flex flex-col text-center text-xl font-bold pt-5">
             <span className="font-semibold ">Correct answers:</span>{" "}
             <span className="text-thymia-purple">{user.correctAnswer}</span>
           </p>
@@ -40,7 +42,7 @@ const ResultsPage = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 ">
+      <div className="flex flex-col gap-3 pt-5 ">
         <Button text="Try again" onClick={handleRestart} />
 
         <p className="text-gray-600 text-center">

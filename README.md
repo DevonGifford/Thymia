@@ -3,7 +3,7 @@
     <h1>Take-Home Assaignment</h1>
     <h3>React app 2-Back Game  <h3>
     <h3> 
-      <a href='🎯🎯🎯', target='_blank'>
+      <a href='https://n-game-technical-assignment.vercel.app/', target='_blank'>
         <h5>live demo</h5>
       <a/>
     </h3>
@@ -30,7 +30,7 @@ Tech Used in this Project
 
 <!-- DEMO IMAGE  -->
 <div align=center>
-    <a href='🎯🎯🎯', target='_blank'>
+    <a href='https://n-game-technical-assignment.vercel.app/', target='_blank'>
         <img src="🎯🎯🎯" alt="Demo-Desktop" title="DemoImage-home" width="600" height="400"> 
         <img src="🎯🎯🎯" alt="Demo-DemoMobile" title="DemoImage-login" width="300" height="500">    
     </a>

@@ -11,6 +11,9 @@ const config: Config = {
       colors: {
         'thymia-purple' : "#8A69D4"
       },
+      fontFamily: {
+        'thymia-title' : ['Lora']
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

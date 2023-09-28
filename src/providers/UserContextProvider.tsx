@@ -13,7 +13,6 @@ const UserContextProvider = ({ children }: ProviderProps) => {
   const [username, setUsername] = useState<string>();
   const [correctAnswer, setCorrectAnswer] = useState(0);
   const [wrongAnswer, setWrongAnswer] = useState(0);
-
   const [showAnalytics, setShowAnalytics] = useState(false);
 
   const resetGame = () => {

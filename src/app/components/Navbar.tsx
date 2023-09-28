@@ -10,14 +10,14 @@ import {
 
 export default function NavBar() {
   return (
-    <nav className="absolute w-full flex justify-between items-center bg-thymia-purple bg-opacity-80 text-white h-14 p-5">
-      <div className="flex gap-14">
+    <nav className="absolute w-full flex justify-between items-center bg-thymia-purple bg-opacity-20 backdrop-blur-2xl text-black h-14 p-5 italic">
+      <div className="flex gap-8 ">
         <Link
           href="/"
-          className="flex flex-row gap-2 transition ease-in-out duration-150 hover:scale-110"
+          className="flex flex-row gap-2 transition ease-in-out duration-150 hover:scale-110 text-thymia-purple"
         >
           <BrainCog size={32} className=" translate-y-1" />
-          <p className="text-3xl font-bold">2-Back</p>
+          <p className="text-3xl font-bold font-thymia-title italic">Two-back</p>
         </Link>
 
         <Link
@@ -26,8 +26,8 @@ export default function NavBar() {
           className="flex justify-end items-center"
         >
           <div className="hidden sm:flex flex-row gap-2 transition ease-in-out duration-150 hover:scale-110">
-            <span className="block text-sm">Project Source Code</span>
-            <ExternalLink size={20} />
+            <span className="block text-sm text-gray-600">Project Source Code</span>
+            <ExternalLink size={10} className=" translate-y-1 text-gray-600"/>
           </div>
         </Link>
       </div>

@@ -70,7 +70,7 @@ const GamePage = () => {
       <div className="w-full h-1/2 md:w-9/12 max-w-2xl -translate-y-7 sm:translate-y-0">
         <div className="flex flex-col-reverse text-center md:flex-row w-full md:justify-between text-slate-900 text-xs sm:text-sm px-8 translate-y-12">
           <p>You have {2 - user.wrongAnswer} chances left</p>
-          <p>{20 - count} questions remaining</p>
+          <p>{15 - count} questions remaining</p>
         </div>
         <div className="flex flex-col h-full min-h-[300px] justify-center items-center gap-10 text-5xl font-bold text-center border-2 bg-thymia-purple bg-opacity-30 200 rounded-xl">
           <p className=" text-9xl ">{currentLetter}</p>
@@ -78,7 +78,7 @@ const GamePage = () => {
       </div>
 
       <div className="flex flex-col -translate-y-12 sm:translate-y-0">
-        <h2 className="sm:mt-4 self-start">
+        <h2 className="sm:mt-4 text-center text-gray-600">
           Click below if you have seen this image in the most recent 2 images:
         </h2>
 

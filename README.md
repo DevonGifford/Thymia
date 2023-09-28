@@ -31,8 +31,9 @@ Tech Used in this Project
 <!-- DEMO IMAGE  -->
 <div align=center>
     <a href='https://n-game-technical-assignment.vercel.app/', target='_blank'>
-        <img src="🎯🎯🎯" alt="Demo-Desktop" title="DemoImage-home" width="600" height="400"> 
-        <img src="🎯🎯🎯" alt="Demo-DemoMobile" title="DemoImage-login" width="300" height="500">    
+        <img src="./src/assets/GitHub/HomePageDemo.png" alt='Demo-Home-Page' title="DemoImage-HomePage" width='400'>
+        <img src="./src/assets/GitHub/GamePageDemo.png" alt="Demo-Game-Page" title="DemoImage-GamePage" width="402"> 
+        <img src="./src/assets/GitHub/ResultsPageDemo.png" alt="Demo-DemoMobile" title="DemoImage-ResultsPage" width="400">    
     </a>
 </div>
 <br>
@@ -115,13 +116,32 @@ The task involves presenting a sequence of letters and asking the user to identi
 
 #### Known issues & Things I didn't have time for: 
 
-💥  🎯🎯🎯
+💥  Implement a restriction to prevent users from clicking the same letter more than once per new stimulus, ensuring task integrity.
 
+💥  Implement a system to accurately record instances where a user misses a correct answer.
+
+💥  Establish a separate state for users who did not complete the test (DNF) due to more than two mistakes.
+
+💥  Ensure that the same letter does not appear consecutively to enhance task validity.
+
+💥  Improve Test Coverage and add E2E testing 
 </br>
 
 #### Future Features & Improvements: 
 
-💥  🎯🎯🎯
+💥  Incorporate a brief interval between each letter presentation. Display the letter for a duration of 10 seconds, followed by a 10-second blank screen before transitioning to the next stimulus.
+
+💥  Develop a comprehensive history feature to document correct answers for each instance a user provides an incorrect or missed response, enabling a detailed performance review.
+
+💥  Integrate a user-friendly redirect mechanism on the /game and /results pages if no user is currently authenticated, providing a seamless user experience.
+
+💥  Allow users to customize the game difficulty by enabling the transition between 2-back, 3-back, or 1-back modes (n-back), providing a tailored cognitive training experience.
+
+💥  Introduce a timer display for each presented letter, enhancing user engagement and performance tracking.
+
+💥  Provide immediate visual feedback for correct and incorrect answers, beyond a simple error count, to enhance the user's experience.
+
+💥  Enhance the visual appeal and user experience of loading and error states to create a more engaging interface.
 
 <!-- CLOSING DIV -->
 </details>

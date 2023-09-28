@@ -18,7 +18,7 @@ const sharedConfig = {
 const clientTestConfig = {
   ...sharedConfig,
   testEnvironment: 'jest-environment-jsdom',
-  testMatch: ['**/__tests__/*components.test.tsx','**/__tests__/page-*']
+  testMatch: ['**/__tests__/*components.test.tsx','**/__tests__/page*']
 };
 //👇 Setup for testing server side rendered components
 //🎯 unused - remove post final code review

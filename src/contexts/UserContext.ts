@@ -31,14 +31,14 @@ export const UserContext = createContext<UserContextType>({
 });
 
 // 👇 Custom hook to work with the UserContext
+
+// 🎯 move provider here
+
+// 🎯 this is not standard practice apparently 
+// - export  const useUserContext = () => useContext(UserContext); - this doesnt work
 export function useUserContext() {
   const user = useContext(UserContext);
-  const router = useRouter();
 
-  // if (user.username === undefined) {
-  //   router.push("./");
-  //   // throw new Error("useUserContext must be used with a user - the user is currently undefined")
-  // }
 
   return user;
 }

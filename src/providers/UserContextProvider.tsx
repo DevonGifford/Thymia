@@ -42,3 +42,6 @@ const UserContextProvider = ({ children }: ProviderProps) => {
 };
 
 export default UserContextProvider;
+
+
+// 🎯  MERGE THIS WITH CONTEXT

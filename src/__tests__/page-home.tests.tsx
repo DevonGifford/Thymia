@@ -1,8 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-
-import Home from "@/app/page";
+import Home from "../app/page";
 
 jest.mock("next/navigation", () => ({
   useRouter: () => ({
@@ -16,7 +15,7 @@ it("expects certain elements to be on the page render", () => {
   render(<Home />);
 
   const headingCheck = screen.getByText(
-    "The 2-Back game is a cognitive training exercise designed to enhance working memory, attention, and pattern recognition skills."
+    "The 2-Back game is a cognitive training exercise designed to enhance working memory, attention, and pattern recognition skills.",
   );
   const nameCheck = screen.getByText("Enter your name to begin");
   const howtoplayCheck = screen.getByText("How to play?");

@@ -1,4 +1,3 @@
-import { useRouter } from "next/navigation";
 import { createContext, Dispatch, SetStateAction, useContext } from "react";
 
 interface UserContextType {
@@ -34,11 +33,10 @@ export const UserContext = createContext<UserContextType>({
 
 // 🎯 move provider here
 
-// 🎯 this is not standard practice apparently 
+// 🎯 this is not standard practice apparently
 // - export  const useUserContext = () => useContext(UserContext); - this doesnt work
 export function useUserContext() {
   const user = useContext(UserContext);
-
 
   return user;
 }

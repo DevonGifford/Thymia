@@ -1,7 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-
-import ResultsPage from "@/app/results/page";
+import ResultsPage from "../app/results/page";
 
 jest.mock("next/navigation", () => ({
   useRouter: () => ({

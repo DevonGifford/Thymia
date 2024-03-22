@@ -5,11 +5,11 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useUserContext } from "@/contexts/UserContext";
-import { sendAnalyticsEvent } from "@/utils/analytics";
 import { Eye, EyeOff } from "lucide-react";
 import Button from "./components/Button";
 import Heading from "./components/Heading";
+import { useUserContext } from "../contexts/UserContext";
+import { sendAnalyticsEvent } from "../utils/analytics";
 
 const UsernameSchema = z.object({
   username: z

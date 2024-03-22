@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useUserContext } from "@/contexts/UserContext";
-import { sendAnalyticsEvent } from "@/utils/analytics";
+import { useUserContext } from "@/src/contexts/UserContext";
+import { sendAnalyticsEvent } from "@/src/utils/analytics";
+
 import Button from "../components/Button";
 import Heading from "../components/Heading";
 
@@ -47,13 +48,13 @@ const GamePage = () => {
       user.setCorrectAnswer(user.correctAnswer + 1);
       sendAnalyticsEvent(
         user.showAnalytics,
-        "Attempt button clicked - Correct Answer ✅"
+        "Attempt button clicked - Correct Answer ✅",
       );
     } else {
       user.setWrongAnswer(user.wrongAnswer + 1);
       sendAnalyticsEvent(
         user.showAnalytics,
-        "Attempt button clicked - Wrong answer ❌"
+        "Attempt button clicked - Wrong answer ❌",
       );
     }
   };

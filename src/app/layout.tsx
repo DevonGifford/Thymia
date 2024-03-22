@@ -1,10 +1,9 @@
-import UserContextProvider from "@/providers/UserContextProvider";
-
-import "./globals.css";
+import NavBar from "./components/Navbar";
+import ToasterProvider from "../providers/ToastProvider";
+import UserContextProvider from "../providers/UserContextProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import ToasterProvider from "../providers/ToastProvider";
-import NavBar from "./components/Navbar";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

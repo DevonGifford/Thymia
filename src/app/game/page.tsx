@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { useUserContext } from "@/src/contexts/UserContext";
 import { sendAnalyticsEvent } from "@/src/utils/analytics";
 
-import Button from "../components/Button";
-import Heading from "../components/Heading";
+import Button from "../../components/Button";
+import Heading from "../../components/Heading";
 
 const GamePage = () => {
   const user = useUserContext();

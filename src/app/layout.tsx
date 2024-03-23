@@ -1,4 +1,4 @@
-import NavBar from "./components/Navbar";
+import NavBar from "../components/Navbar";
 import ToasterProvider from "../providers/ToastProvider";
 import UserContextProvider from "../providers/UserContextProvider";
 import type { Metadata } from "next";

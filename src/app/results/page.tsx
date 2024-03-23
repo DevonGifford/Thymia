@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import Button from "../components/Button";
-import Heading from "../components/Heading";
+import Button from "../../components/Button";
+import Heading from "../../components/Heading";
 import { useUserContext } from "@/src/contexts/UserContext";
 import { sendAnalyticsEvent } from "@/src/utils/analytics";
 

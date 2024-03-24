@@ -1,11 +1,46 @@
 "use client";
 
 import React, { ReactNode, useState } from "react";
-import { UserContext } from "../contexts/UserContext";
 import { useRouter } from "next/navigation";
 
 interface ProviderProps {
   children: ReactNode;
+}
+
+import { createContext, Dispatch, SetStateAction, useContext } from "react";
+
+type UserContextType = {
+  username?: string | undefined;
+  setUsername: Dispatch<SetStateAction<string | undefined>>;
+
+  correctAnswer: number;
+  setCorrectAnswer: Dispatch<SetStateAction<number>>;
+
+  wrongAnswer: number;
+  setWrongAnswer: Dispatch<SetStateAction<number>>;
+
+  showAnalytics: boolean;
+  setShowAnalytics: Dispatch<SetStateAction<boolean>>;
+
+  resetGame: () => void;
+};
+
+const UserContext = createContext<UserContextType>({
+  username: undefined,
+  setUsername: () => null,
+  correctAnswer: 0,
+  setCorrectAnswer: () => null,
+  wrongAnswer: 0,
+  setWrongAnswer: () => null,
+  showAnalytics: false,
+  setShowAnalytics: () => null,
+  resetGame: () => null,
+});
+
+export function useUserContext() {
+  const user = useContext(UserContext);
+
+  return user;
 }
 
 const UserContextProvider = ({ children }: ProviderProps) => {
@@ -18,8 +53,7 @@ const UserContextProvider = ({ children }: ProviderProps) => {
   const resetGame = () => {
     setCorrectAnswer(0);
     setWrongAnswer(0);
-    router.push('/game')
-
+    router.push("/game");
   };
 
   return (
@@ -42,6 +76,3 @@ const UserContextProvider = ({ children }: ProviderProps) => {
 };
 
 export default UserContextProvider;
-
-
-// 🎯  MERGE THIS WITH CONTEXT

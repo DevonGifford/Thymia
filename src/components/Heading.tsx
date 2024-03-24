@@ -1,8 +1,8 @@
 type HeadingProps = {
   headingBlack: string;
   headingColor: string | undefined;
-  subHeadingBlack: string;
-  subHeadingColor: string;
+  subHeadingBlack?: string;
+  subHeadingColor?: string;
 };
 
 export default function Heading({
@@ -16,15 +16,19 @@ export default function Heading({
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold pb-2">
         {headingBlack}{" "}
         <span className="text-5xl md:text-6xl lg:text-7xl text-thymia-purple font-thymia-title italic">
+          {" "}
           {headingColor}
         </span>
       </h1>
-      <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold">
-        {subHeadingBlack}{" "}
-        <span className="text-2xl md:text-3xl lg:text-4xl text-thymia-purple font-thymia-title italic">
-          {subHeadingColor}
-        </span>
-      </h2>
+      {subHeadingBlack && (
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold">
+          {subHeadingBlack}{" "}
+          <span className="text-2xl md:text-3xl lg:text-4xl text-thymia-purple font-thymia-title italic">
+            {" "}
+            {subHeadingColor}
+          </span>
+        </h2>
+      )}
     </header>
   );
 }

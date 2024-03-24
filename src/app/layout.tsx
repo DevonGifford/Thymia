@@ -1,9 +1,9 @@
 import { Toaster } from "react-hot-toast";
-import UserContextProvider from "../providers/UserContextProvider";
 import NavBar from "../components/Navbar";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import UserContextProvider from "../contexts/UserContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 

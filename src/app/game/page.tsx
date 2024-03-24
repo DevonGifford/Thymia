@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useUserContext } from "@/src/contexts/UserContext";
+import { useUserContext } from "@/src/contexts/UserContextProvider";
 import { sendAnalyticsEvent } from "@/src/utils/analytics";
 
 import Button from "../../components/Button";
@@ -48,13 +48,13 @@ const GamePage = () => {
       user.setCorrectAnswer(user.correctAnswer + 1);
       sendAnalyticsEvent(
         user.showAnalytics,
-        "Attempt button clicked - Correct Answer ✅",
+        "Attempt button clicked - Correct Answer ✅"
       );
     } else {
       user.setWrongAnswer(user.wrongAnswer + 1);
       sendAnalyticsEvent(
         user.showAnalytics,
-        "Attempt button clicked - Wrong answer ❌",
+        "Attempt button clicked - Wrong answer ❌"
       );
     }
   };

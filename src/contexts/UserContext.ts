@@ -25,16 +25,9 @@ export const UserContext = createContext<UserContextType>({
   setWrongAnswer: () => null,
   showAnalytics: false,
   setShowAnalytics: () => null,
-
   resetGame: () => null,
 });
 
-// 👇 Custom hook to work with the UserContext
-
-// 🎯 move provider here
-
-// 🎯 this is not standard practice apparently
-// - export  const useUserContext = () => useContext(UserContext); - this doesnt work
 export function useUserContext() {
   const user = useContext(UserContext);
 

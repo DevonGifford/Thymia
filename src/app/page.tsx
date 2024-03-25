@@ -57,6 +57,7 @@ export default function Home() {
     } else {
       toast.success("Event Logs: ON");
     }
+    // TODO: button should only push correct answer once per interval
   };
 
   return (
@@ -83,7 +84,6 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-start gap-5">
             <input
               type="text"
-              role="username-input"
               placeholder="Enter your name..."
               onKeyDown={() => clearErrors()}
               className="p-2 text-black font-semibold m-0.5 rounded-xl border-2 border-thymia-purple border-opacity-50 focus:border-thymia-purple"
@@ -121,7 +121,7 @@ export default function Home() {
         </aside>
       </article>
 
-      <section className="flex flex-col gap-6 text-center border-2 border-thymia-purple rounded-xl border-opacity-40 bg-thymia-purple bg-opacity-20 p-7 sm:mx-10 md:mx-40 shadow-slate-500 shadow-2xl">
+      <section className="flex flex-col gap-6 text-center border-2 border-thymia-purple rounded-xl border-opacity-40 bg-thymia-purple bg-opacity-20 p-7 sm:mx-10 lg:mx-40 shadow-slate-500 shadow-2xl">
         <h3 className="text-2xl md:text-3xl font-bold text-thymia-purple font-thymia-title">
           How to play?
         </h3>

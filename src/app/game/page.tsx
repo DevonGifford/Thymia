@@ -11,20 +11,18 @@ import Heading from "../../components/Heading";
 const GamePage = () => {
   const user = useUserContext();
   const router = useRouter();
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(1); //FIXME: improve naming conventions
   const [currentLetter, setCurrentLetter] = useState(getRandomLetter());
   const [letterCache, setLetterCache] = useState([currentLetter, ""]);
 
-  // ✅ Function to randomly select a letter from the array
-  // 🎯 should not be able to have the same number directly after each other (twice in a row)
-  // const letters = ["A", "B", "C", "D", "E", "H", "I", "K", "L", "M", "O", "P", "R", "S", "T"];
+  // TODO: should not be able to have the same number directly after each other (twice in a row)
+  // FIXME: improve naming convention
   function getRandomLetter() {
     const letters = ["A", "B", "C", "D", "X", "Z"];
     const randomIndex = Math.floor(Math.random() * letters.length);
     return letters[randomIndex];
   }
 
-  // ✅ Handles Game Logic - interval-based updates, checking for game completion conditions, and triggering relevant events.
   useEffect(() => {
     const interval = setInterval(() => {
       setLetterCache([currentLetter, letterCache[0]]);
@@ -41,20 +39,22 @@ const GamePage = () => {
     return () => clearInterval(interval);
   });
 
-  // ✅ Handles user's guess  - checks, updates and logs
-  // 🎯 button should only push correct answer once per interval
+  // TODO:
+  // - button should only push correct answer once per interval
+  // - button should not be clickable on the first itnerval
+  // FIXME: improve naming convention
   const handleButtonClick = () => {
     if (currentLetter === letterCache[0] || currentLetter === letterCache[1]) {
       user.setCorrectAnswer(user.correctAnswer + 1);
       sendAnalyticsEvent(
         user.showAnalytics,
-        "Attempt button clicked - Correct Answer ✅"
+        "Attempt button clicked - Correct Answer ✅",
       );
     } else {
       user.setWrongAnswer(user.wrongAnswer + 1);
       sendAnalyticsEvent(
         user.showAnalytics,
-        "Attempt button clicked - Wrong answer ❌"
+        "Attempt button clicked - Wrong answer ❌",
       );
     }
   };

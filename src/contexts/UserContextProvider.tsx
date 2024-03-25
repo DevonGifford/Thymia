@@ -1,31 +1,27 @@
 "use client";
 
-import React, { ReactNode, useState } from "react";
 import { useRouter } from "next/navigation";
+import React, {
+  useState,
+  createContext,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
-interface ProviderProps {
-  children: ReactNode;
-}
-
-import { createContext, Dispatch, SetStateAction, useContext } from "react";
-
-type UserContextType = {
+export type UserContextType = {
   username?: string | undefined;
   setUsername: Dispatch<SetStateAction<string | undefined>>;
-
   correctAnswer: number;
   setCorrectAnswer: Dispatch<SetStateAction<number>>;
-
   wrongAnswer: number;
   setWrongAnswer: Dispatch<SetStateAction<number>>;
-
   showAnalytics: boolean;
   setShowAnalytics: Dispatch<SetStateAction<boolean>>;
-
   resetGame: () => void;
 };
 
-const UserContext = createContext<UserContextType>({
+export const defaultContextValues: UserContextType = {
   username: undefined,
   setUsername: () => null,
   correctAnswer: 0,
@@ -35,20 +31,42 @@ const UserContext = createContext<UserContextType>({
   showAnalytics: false,
   setShowAnalytics: () => null,
   resetGame: () => null,
-});
+};
 
-export function useUserContext() {
-  const user = useContext(UserContext);
-
-  return user;
+interface UserContextProviderProps {
+  children: React.ReactNode;
+  defaultValues: UserContextType;
 }
 
-const UserContextProvider = ({ children }: ProviderProps) => {
+export const UserContext = createContext<UserContextType | undefined>(
+  undefined
+);
+
+export function useUserContext() {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("useUserContext must be used within a UserContextProvider");
+  }
+  return context;
+}
+
+const UserContextProvider = ({
+  children,
+  defaultValues,
+}: UserContextProviderProps) => {
   const router = useRouter();
-  const [username, setUsername] = useState<string>();
-  const [correctAnswer, setCorrectAnswer] = useState(0);
-  const [wrongAnswer, setWrongAnswer] = useState(0);
-  const [showAnalytics, setShowAnalytics] = useState(false);
+  const [username, setUsername] = useState<string | undefined>(
+    defaultValues.username
+  );
+  const [correctAnswer, setCorrectAnswer] = useState<number>(
+    defaultValues.correctAnswer
+  );
+  const [wrongAnswer, setWrongAnswer] = useState<number>(
+    defaultValues.wrongAnswer
+  );
+  const [showAnalytics, setShowAnalytics] = useState<boolean>(
+    defaultValues.showAnalytics
+  );
 
   const resetGame = () => {
     setCorrectAnswer(0);

@@ -19,6 +19,6 @@ export const sendAnalyticsEvent = async (
       });
     }
   } catch {
-    console.error("There has been an error in sending analytic event");
+    // console.error("There has been an error in sending analytic event");
   }
 };

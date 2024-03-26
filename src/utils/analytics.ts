@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 
 export const sendAnalyticsEvent = async (
   showAnalytics: boolean,
-  eventName: string
+  eventName: string,
 ) => {
   try {
     console.log("🧪SEND ANALYTICS EVENT");
@@ -19,6 +19,6 @@ export const sendAnalyticsEvent = async (
       });
     }
   } catch {
-    console.error("There has been an error in sending analytic event");
+    // console.error("There has been an error in sending analytic event");
   }
 };

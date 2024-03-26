@@ -1,107 +1,144 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import Home from "../app/page";
+import { customRender } from "./test-utils";
 
-import Home from "@/app/page";
+const mockRouteChange = jest.fn();
 
 jest.mock("next/navigation", () => ({
   useRouter: () => ({
     route: "/",
     query: {},
     asPath: "",
+    push: mockRouteChange,
   }),
 }));
 
-it("expects certain elements to be on the page render", () => {
-  render(<Home />);
+it("Verifies the rendering of critical UI elements", () => {
+  //Assemble
+  customRender(<Home />);
 
-  const headingCheck = screen.getByText(
-    "The 2-Back game is a cognitive training exercise designed to enhance working memory, attention, and pattern recognition skills."
-  );
-  const nameCheck = screen.getByText("Enter your name to begin");
-  const howtoplayCheck = screen.getByText("How to play?");
-  const evenLogsCheck = screen.getByText("Show event logs?");
+  const navLogo = screen.getByText("Two-back");
+  const navLinks = screen.getByText("by Devon Gifford");
+  const heading = screen.getByText(/a cognitive training exercise/i);
+  const instructions = screen.getByText("How to play?");
+  const toggleLogButton = screen.getByText("Show event logs?");
 
-  expect(headingCheck).toBeInTheDocument();
-  expect(nameCheck).toBeInTheDocument();
-  expect(howtoplayCheck).toBeInTheDocument();
-  expect(evenLogsCheck).toBeInTheDocument();
+  expect(navLogo).toBeInTheDocument();
+  expect(navLinks).toBeInTheDocument();
+  expect(heading).toBeInTheDocument();
+  expect(instructions).toBeInTheDocument();
+  expect(toggleLogButton).toBeInTheDocument();
 });
 
-it("submits form with valid username", async () => {
-  render(<Home />);
+describe("Form Submission Tests", () => {
+  //NOTE: this test is causing console logs that I dont understand.
+  it("Valid Username - triggers route change to game page ", async () => {
+    //Assemble
+    customRender(<Home />);
+    const input = screen.getByRole("textbox");
+    const submitbutton = screen.getByRole("button", { name: "Start The Game" });
+    // Act
+    await userEvent.click(input);
+    await userEvent.keyboard("validusername");
+    // Assert
+    expect(input).toHaveValue("validusername");
+    //Act
+    await userEvent.click(submitbutton);
+    // Assert
+    expect(mockRouteChange).toHaveBeenCalledWith("/game");
+  });
 
-  // Enter a valid username
-  const input = screen.getByRole("username-input");
-  const submitbutton = screen.getByRole("button", { name: "Start The Game" });
+  it("Empty Username, displays error message", async () => {
+    //Assemble
+    customRender(<Home />);
+    const input = screen.getByRole("textbox");
+    const submitbutton = screen.getByRole("button", { name: "Start The Game" });
+    // Act
+    await userEvent.click(input);
+    await userEvent.click(submitbutton);
+    // Assert
+    const errorMessage = screen.getByText(/username is required/i);
+    expect(errorMessage).toBeInTheDocument();
+  });
 
-  await userEvent.click(input);
-  await userEvent.keyboard("validusername");
-  await userEvent.click(submitbutton);
+  it("Short Username, displays an error message", async () => {
+    //Assemble
+    customRender(<Home />);
+    const input = screen.getByRole("textbox");
+    const submitbutton = screen.getByRole("button", { name: "Start The Game" });
+    // Act
+    await userEvent.click(input);
+    await userEvent.keyboard("no");
+    // Assert
+    expect(input).toHaveValue("no");
+    //Act
+    await userEvent.click(submitbutton);
+    // Assert
+    const errorMessage = screen.getByText(/username is too short/i);
+    expect(errorMessage).toBeInTheDocument();
+  });
 
-  // Assert that the form submission behavior is correct
-  expect(console.error);
+  it("Long Username, displays an error message", async () => {
+    //Assemble
+    customRender(<Home />);
+    const input = screen.getByRole("textbox");
+    const submitbutton = screen.getByRole("button", { name: "Start The Game" });
+    // Act
+    await userEvent.click(input);
+    await userEvent.keyboard("ThisUserNameIsTooLong");
+    // Assert
+    expect(input).toHaveValue("ThisUserNameIsTooLong");
+    //Act
+    await userEvent.click(submitbutton);
+    // Assert
+    const errorMessage = screen.getByText(/username is too long/i);
+    expect(errorMessage).toBeInTheDocument();
+  });
 });
 
-it("displays error message for invalid username", async () => {
-  render(<Home />);
-
-  // Enter an invalid username
-  const input = screen.getByRole("username-input");
-  const submitbutton = screen.getByRole("button", { name: "Start The Game" });
-  await userEvent.click(input);
-  await userEvent.keyboard("12");
-
-  // Submit the form
-  await userEvent.click(submitbutton);
-
-  // Assert that the error message is displayed
-  expect(screen.getByText("⚠ Username is too short")).toBeInTheDocument();
+// NOTE: need to further research the reason this is required ...
+window.matchMedia = jest.fn().mockReturnValue({
+  matches: false,
+  addListener: jest.fn(),
+  removeListener: jest.fn(),
 });
 
-//   jest.mock("@/contexts/UserContext", () => ({
-//     useUserContext: jest.fn(() => ({
-//       showAnalytics: false,
-//       setShowAnalytics: jest.fn(),
-//     })),
-//   }));
+describe("Toggle Event Logs Test", () => {
+  it("Toggle on, results in toast ", async () => {
+    //Assemble
+    customRender(<Home />);
+    const toggleLogCheckbox = screen.getByRole("checkbox");
+    expect(toggleLogCheckbox).not.toBeChecked();
 
-//   it("toggles analytics visibility", async () => {
-//     render(<Home />);
+    // Act
+    await userEvent.click(toggleLogCheckbox);
+    expect(toggleLogCheckbox).toBeChecked();
 
-//     // Click the "Show event logs?" checkbox
-//     await userEvent.click(screen.getByText("Show event logs?"));
+    // Assert
+    await waitFor(() => {
+      const toastNotification = screen.getByText(/Event Logs: ON/i);
+      expect(toastNotification).toBeInTheDocument();
+    });
+  });
 
-//     // Assert that setShowAnalytics is called with the correct value
-//     expect(useUserContext().setShowAnalytics).toHaveBeenCalledWith(true);
-//   });
+  it("Toggle off, results in correct toast", async () => {
+    //Assemble
+    customRender(<Home />);
+    const toggleLogCheckbox = screen.getByRole("checkbox");
+    expect(toggleLogCheckbox).not.toBeChecked();
 
-//   it("navigates to game page after form submission", async () => {
-//     render(<Home />);
+    // Act
+    await userEvent.click(toggleLogCheckbox);
+    expect(toggleLogCheckbox).toBeChecked();
+    await userEvent.click(toggleLogCheckbox);
+    expect(toggleLogCheckbox).not.toBeChecked();
 
-//     // Enter a valid username
-//     const input = screen.getByRole("username-input");
-//     const submitbutton = screen.getByRole('button', {name: 'Start The Game'});
-//     await userEvent.click(input)
-//     await userEvent.keyboard("guest");
-
-//     // Submit the form
-//     await userEvent.click(submitbutton);
-
-//     // Assert that the router is called with the correct path
-//     expect(mockRouter.push).toHaveBeenCalledWith("./game");
-//   });
-
-// it("navigates to game page after form submission", async () => {
-//     render(<Home />);
-
-//     // Enter a valid username
-//     const input = screen.getByRole("username-input");
-//     await userEvent.keyboard("validusername");
-
-//     // Submit the form
-//     await userEvent.click(screen.getByText("Start The Game"));
-
-//     // Assert that the router is called with the correct path
-//     expect(mockRouter.push).toHaveBeenCalledWith("./game");
-//   });
+    // Assert
+    await waitFor(() => {
+      const toastNotification = screen.getByText(/Event Logs: OFF/i);
+      expect(toastNotification).toBeInTheDocument();
+    });
+  });
+});

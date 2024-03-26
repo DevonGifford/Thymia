@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import {
   BrainCog,
@@ -17,7 +16,9 @@ export default function NavBar() {
           className="flex flex-row gap-2 transition ease-in-out duration-150 hover:scale-110 text-thymia-purple"
         >
           <BrainCog size={32} className=" translate-y-1" />
-          <p className="text-3xl font-bold font-thymia-title italic">Two-back</p>
+          <p className="text-3xl font-bold font-thymia-title italic">
+            Two-back
+          </p>
         </Link>
 
         <Link
@@ -26,8 +27,10 @@ export default function NavBar() {
           className="flex justify-end items-center"
         >
           <div className="hidden sm:flex flex-row gap-2 transition ease-in-out duration-150 hover:scale-110">
-            <span className="block text-sm text-gray-600">Project Source Code</span>
-            <ExternalLink size={10} className=" translate-y-1 text-gray-600"/>
+            <span className="block text-sm text-gray-600">
+              Project Source Code
+            </span>
+            <ExternalLink size={10} className=" translate-y-1 text-gray-600" />
           </div>
         </Link>
       </div>

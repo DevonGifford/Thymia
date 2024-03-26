@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { useUserContext } from "@/contexts/UserContext";
-import { sendAnalyticsEvent } from "@/utils/analytics";
 
-import Button from "../components/Button";
-import Heading from "../components/Heading";
+import Button from "../../components/Button";
+import Heading from "../../components/Heading";
+import { sendAnalyticsEvent } from "@/src/utils/analytics";
+import { useUserContext } from "@/src/contexts/UserContextProvider";
 
 const ResultsPage = () => {
   const user = useUserContext();

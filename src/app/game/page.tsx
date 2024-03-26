@@ -1,29 +1,28 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useUserContext } from "@/contexts/UserContext";
-import { sendAnalyticsEvent } from "@/utils/analytics";
-import Button from "../components/Button";
-import Heading from "../components/Heading";
+import { useUserContext } from "@/src/contexts/UserContextProvider";
+import { sendAnalyticsEvent } from "@/src/utils/analytics";
+
+import Button from "../../components/Button";
+import Heading from "../../components/Heading";
 
 const GamePage = () => {
   const user = useUserContext();
   const router = useRouter();
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(1); //FIXME: improve naming conventions
   const [currentLetter, setCurrentLetter] = useState(getRandomLetter());
   const [letterCache, setLetterCache] = useState([currentLetter, ""]);
 
-  // ✅ Function to randomly select a letter from the array
-  // 🎯 should not be able to have the same number directly after each other (twice in a row)
-  // const letters = ["A", "B", "C", "D", "E", "H", "I", "K", "L", "M", "O", "P", "R", "S", "T"];
+  // TODO: should not be able to have the same number directly after each other (twice in a row)
+  // FIXME: improve naming convention
   function getRandomLetter() {
     const letters = ["A", "B", "C", "D", "X", "Z"];
     const randomIndex = Math.floor(Math.random() * letters.length);
     return letters[randomIndex];
   }
 
-  // ✅ Handles Game Logic - interval-based updates, checking for game completion conditions, and triggering relevant events.
   useEffect(() => {
     const interval = setInterval(() => {
       setLetterCache([currentLetter, letterCache[0]]);
@@ -40,8 +39,10 @@ const GamePage = () => {
     return () => clearInterval(interval);
   });
 
-  // ✅ Handles user's guess  - checks, updates and logs
-  // 🎯 button should only push correct answer once per interval
+  // TODO:
+  // - button should only push correct answer once per interval
+  // - button should not be clickable on the first itnerval
+  // FIXME: improve naming convention
   const handleButtonClick = () => {
     if (currentLetter === letterCache[0] || currentLetter === letterCache[1]) {
       user.setCorrectAnswer(user.correctAnswer + 1);
@@ -73,7 +74,9 @@ const GamePage = () => {
           <p>{15 - count} questions remaining</p>
         </div>
         <div className="flex flex-col h-full min-h-[300px] justify-center items-center gap-10 text-5xl font-bold text-center border-2 bg-thymia-purple bg-opacity-30 200 rounded-xl">
-          <p className=" text-9xl ">{currentLetter}</p>
+          <p className=" text-9xl" data-testid="visual-stimuli">
+            {currentLetter}
+          </p>
         </div>
       </div>
 

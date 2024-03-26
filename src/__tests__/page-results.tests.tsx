@@ -15,7 +15,7 @@ jest.mock("next/navigation", () => ({
   }),
 }));
 
-it("Verifies the rendering of critical UI elements", () => {
+test("Verifies the rendering of critical UI elements", () => {
   //Assemble
   customRender(<ResultsPage />);
 
@@ -33,9 +33,15 @@ it("Verifies the rendering of critical UI elements", () => {
   expect(wrongCheck).toBeInTheDocument();
 });
 
-it("renders results page with the correct results based on global state", async () => {
+test("renders results page with the correct results based on global state", async () => {
   //Assemble
-  customRender(<ResultsPage />);
+  const customState = {
+    username: "testUsername",
+    correctAnswer: 10,
+    wrongAnswer: 5,
+    showAnalytics: true,
+  };
+  customRender(<ResultsPage />, { injectedState: customState });
 
   const correctAnswerHeading = screen.getByText(/correct answer/i);
   const correctAnswerCount = screen.getByText("10");
@@ -48,7 +54,6 @@ it("renders results page with the correct results based on global state", async 
   expect(incorrectAnswerHeading).toBeInTheDocument();
   expect(incorrectAnswerCount).toBeInTheDocument();
 });
-
 
 test("should restart the quizz after restart button is clicked", async () => {
   //Assemble

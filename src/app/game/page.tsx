@@ -48,13 +48,13 @@ const GamePage = () => {
       user.setCorrectAnswer(user.correctAnswer + 1);
       sendAnalyticsEvent(
         user.showAnalytics,
-        "Attempt button clicked - Correct Answer ✅",
+        "Attempt button clicked - Correct Answer ✅"
       );
     } else {
       user.setWrongAnswer(user.wrongAnswer + 1);
       sendAnalyticsEvent(
         user.showAnalytics,
-        "Attempt button clicked - Wrong answer ❌",
+        "Attempt button clicked - Wrong answer ❌"
       );
     }
   };
@@ -74,7 +74,9 @@ const GamePage = () => {
           <p>{15 - count} questions remaining</p>
         </div>
         <div className="flex flex-col h-full min-h-[300px] justify-center items-center gap-10 text-5xl font-bold text-center border-2 bg-thymia-purple bg-opacity-30 200 rounded-xl">
-          <p className=" text-9xl ">{currentLetter}</p>
+          <p className=" text-9xl" data-testid="visual-stimuli">
+            {currentLetter}
+          </p>
         </div>
       </div>
 

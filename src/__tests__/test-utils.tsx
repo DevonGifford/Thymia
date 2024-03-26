@@ -9,18 +9,29 @@ import { Toaster } from "react-hot-toast";
 const mockDefaultValues: UserContextType = {
   username: "Tester",
   setUsername: () => null,
-  correctAnswer: 10,
+  correctAnswer: 0,
   setCorrectAnswer: () => null,
-  wrongAnswer: 5,
+  wrongAnswer: 0,
   setWrongAnswer: () => null,
   showAnalytics: false,
   setShowAnalytics: () => null,
   resetGame: () => null,
 };
 
-const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
+interface TestProviderProps {
+  children: React.ReactNode;
+  injectedState?: Partial<UserContextType>;
+}
+
+const AllTheProviders = ({ children, injectedState }: TestProviderProps ) => {
+  
+  const mockStateValues: UserContextType = {
+    ...mockDefaultValues,
+    ...injectedState
+  }
+
   return (
-    <UserContextProvider defaultValues={mockDefaultValues}>
+    <UserContextProvider defaultValues={mockStateValues}>
       <NavBar />
       {children}
       <Toaster
@@ -41,7 +52,8 @@ const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
 
 export const customRender = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, "wrapper">
-) => render(ui, { wrapper: AllTheProviders, ...options });
+  options?: Omit<RenderOptions, "wrapper"> & { injectedState?: Partial<UserContextType> }
+) => render(ui, { wrapper: (props) => <AllTheProviders {...props} injectedState={options?.injectedState} />, ...options });
+
 
 export * from "@testing-library/react";

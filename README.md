@@ -1,150 +1,102 @@
-<!-- Introduction Text -->
+<a name="readme-top"></a>
+
+<!-- -------------------------------------------------------------------------- -->
+<!-- HEADING STUFF  -->
 <div align="center">
-    <h1>Take-Home Assaignment</h1>
-    <h3>React app 2-Back Game  <h3>
-    <h3> 
-      <a href='https://n-game-technical-assignment.vercel.app/', target='_blank'>
-        <h5>live demo</h5>
-      <a/>
-    </h3>
-        <h6>
-            built with <a href="https://nextjs.org/" >NextJS</a> &
-            hosted by <a href="https://vercel.com/">Vercel</a> 
-        </h6>
-</div>
-
----
-
-<h3 align='center'>
-Tech Used in this Project
-<h3>
-<p align='center'>
-    <a href="https://skillicons.dev">
-        <img src="https://skillicons.dev/icons?i=ts,nextjs,tailwind" /><br>
-        <img src="https://img.stackshare.io/service/40157/default_ac6bddce398a038cb30e3dfd23eaab10c84cfc78.jpg" width=50 alt="React-Hot-Toast" >
-        <img src="https://skillicons.dev/icons?i=vercel,github" />
-    </a>
-</p>
-
----
-
-<!-- DEMO IMAGE  -->
-<div align=center>
+  <h2>Take-Home Assessment</h2>
+  <h4>Frontend NextJs app handeling 2-back memory game<h4>
+  <h3> 
     <a href='https://n-game-technical-assignment.vercel.app/', target='_blank'>
-        <img src="./src/assets/GitHub/HomePageDemo.png" alt='Demo-Home-Page' title="DemoImage-HomePage" width='400'>
-        <img src="./src/assets/GitHub/GamePageDemo.png" alt="Demo-Game-Page" title="DemoImage-GamePage" width="402"> 
-        <img src="./src/assets/GitHub/ResultsPageDemo.png" alt="Demo-DemoMobile" title="DemoImage-ResultsPage" width="400">    
+      <h5>live demo ↗</h5>
     </a>
+  </h3>
+  <p align="center">
+    <a href="https://github.com/DevonGifford/Thymia/issues">Report Bug</a>
+    &nbsp;·&nbsp;
+    <a href="https://github.com/DevonGifford/Thymia/issues">Request Feature</a>
+    </p>
 </div>
-<br>
 
 <!-- -------------------------------------------------------------------------- -->
 
-<h1 align='center'> Welcome & Introductory </h1>
+### 👋 Introduction:
 
-<!-- -------------------------------------------------------------------------- -->
+---
 
-### Introduction:
-<hr/>
-<!-- -------------------------------------------------------------------------- -->
+The project involves creating a gamified version of the 2-back task, a cognitive test designed to measure working memory. In this task, users are presented with a sequence of letters and must determine if the current letter matches the one presented two trials before.
 
-Build a gamified version of the 2-back task, which measures working memory.
-The task involves presenting a sequence of letters and asking the user to identify if the current letter matches the one presented 2 trials before.
+I chose Next.js for its built-in routing and used a global React context to manage state across components. The game operates with a random letter generator that progresses through intervals to present stimuli. <br/>
+Additionally, I implemented error logging, simulating post requests, and added a toggle function to display event logs as toast notifications.
 
-<h4><strong>⚠ Note for reviewer: </strong> </h4> 
-
-🎯🎯🎯
-
-
-<!-- -------------------------------------------------------------------------- -->
-<br>
-<hr>
-
-### 🔑 Key-Required Features of this project:
-
-<hr>
-<!-- -------------------------------------------------------------------------- -->
-
-#### REQUIRED FEATURES: 
-
-
-✅  **Repository Setup & Version Control**<br>
-<em>Setup GitHub with ReadMe</em>
-
-✅  **User Interaction:**<br>
-<em>Create a React app where the user can input their name before starting the 2-back task.</em>
-
-
-✅  **Task Completion Conditions - end task after either:**<br>
-<em>- two errors are made</em> <br>
-<em>- a fixed number of letters are displayed (15)</em>
-
-✅  **Event Logging:**<br>
-<em>Capture user interactions as events, mimicking the interaction with an "event API" in the backend.</em>
-
-
-✅  **Fully Responsive & Mobile Compatibility:** <br>
-<em>Ensure that the UI is responsive and mobile-friendly.</em>
-
-
- <br>
-
-#### STRETCH FEATURES: 
-
-
-✅  **Hosting App / Deployment:** <br>
-<em>Deploy the solution online for easy testing.</em>
-
-✅ **Error Handling and Form Validation:** <br>
-<em>Implement proper error handling and validation to ensure the application handles edge cases gracefully.</em>
-
-✅ **Unit & Integration Testing:** <br>
-<em>If time allows, consider including unit tests or integration tests to verify the functionality of your code.</em>
-
-</br>
-<!-- -------------------------------------------------------------------------- -->
-<hr>
-
-### 🎯 Known issues & potential improvements:  
-
-<hr>
-<!-- -------------------------------------------------------------------------- -->
-<!-- Small container -->
-<details>
-<summary> Click here to expand</summary>
 <br/>
 
-#### Known issues & Things I didn't have time for: 
+<!-- -------------------------------------------------------------------------- -->
+<!-- DEMO IMAGES  -->
+<div align=center>
+<a href='https://incard-technical-assaignment-devon-gifford.vercel.app/' align=center>
+    <img src="./src/assets/GitHub/desktop-demo.png" alt="Demo-Desktop-View" title="Demo-Image-Desktop" width="400" height="250"> 
+    <img src="./src/assets/GitHub/mobile-demo.png" alt="Demo-Mobile-View" title="Demo-Image-Mobile" width="150" height="235">    
+</a>
+</div>
+<br>
 
-💥  Implement a restriction to prevent users from clicking the same letter more than once per new stimulus, ensuring task integrity.
+<!-- -------------------------------------------------------------------------- -->
 
-💥  Implement a system to accurately record instances where a user misses a correct answer.
+### 🔑 Assessment Requirements:
 
-💥  Establish a separate state for users who did not complete the test (DNF) due to more than two mistakes.
+---
 
-💥  Ensure that the same letter does not appear consecutively to enhance task validity.
+#### Required Features:
 
-💥  Improve Test Coverage and add E2E testing 
-</br>
+✔ **Repository Setup & Version Control**: Setup GitHub with ReadMe
 
-#### Future Features & Improvements: 
+✔ **User Interaction**: Create a React app allowing user name input before starting the 2-back task.
 
-💥  Incorporate a brief interval between each letter presentation. Display the letter for a duration of 10 seconds, followed by a 10-second blank screen before transitioning to the next stimulus.
+✔ **Task Completion Conditions**: End task after either two errors or displaying 15 letters.
 
-💥  Develop a comprehensive history feature to document correct answers for each instance a user provides an incorrect or missed response, enabling a detailed performance review.
+✔ **Event Logging**: Capture user interactions as events, mimicking backend interaction.
 
-💥  Integrate a user-friendly redirect mechanism on the /game and /results pages if no user is currently authenticated, providing a seamless user experience.
+✔ **Fully Responsive & Mobile Compatibility**: Ensure UI is responsive and mobile-friendly.
 
-💥  Allow users to customize the game difficulty by enabling the transition between 2-back, 3-back, or 1-back modes (n-back), providing a tailored cognitive training experience.
+<br/>
 
-💥  Introduce a timer display for each presented letter, enhancing user engagement and performance tracking.
+#### Bonus Features:
 
-💥  Provide immediate visual feedback for correct and incorrect answers, beyond a simple error count, to enhance the user's experience.
+✔ **Hosting App / Deployment**: Deploy the solution online for easy reviewing.
 
-💥  Enhance the visual appeal and user experience of loading and error states to create a more engaging interface.
+✔ **Error Handling & Form Validation**: Implement error handling and validation for graceful edge case handling.
 
-<!-- CLOSING DIV -->
-</details>
-<!-- SECTION CLOSING DIV -->
-</details>
-<br><br>
+✔ **Unit & Integration Testing**: Include unit or integration tests if time allows.
+
+</br> </br>
+
+<!-- -------------------------------------------------------------------------- -->
+
+### 🎯 Known issues & potential improvements:
+
+---
+
+#### Known issues:
+
+- Prevent users from clicking the same letter more than once per new stimulus.
+
+- Implement a separate state for users who did not complete the test (DNF) due to more than two mistakes.
+
+- Global state is not persisted, page reloads will reset any global variables.
+
+#### Potential improvements:
+
+- Enhance visual appeal and user experience of the application.
+
+- Add brief blank intervals between each letter.
+
+- Add timer display or countdown feature for each presented letter.
+
+- Add an immediate ui feedback for correct and incorrect answers.
+
+<br/>
+
+<!-- -------------------------------------------------------------------------- -->
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<br/> <br/>

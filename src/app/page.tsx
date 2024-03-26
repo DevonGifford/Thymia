@@ -57,7 +57,6 @@ export default function Home() {
     } else {
       toast.success("Event Logs: ON");
     }
-    // TODO: button should only push correct answer once per interval
   };
 
   return (

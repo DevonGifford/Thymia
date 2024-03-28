@@ -9,15 +9,18 @@ import Button from "../../components/Button";
 import Heading from "../../components/Heading";
 
 const GamePage = () => {
-  const user = useUserContext();
   const router = useRouter();
-  const [count, setCount] = useState(1); //FIXME: improve naming conventions
-  const [currentLetter, setCurrentLetter] = useState(getRandomLetter());
-  const [letterCache, setLetterCache] = useState([currentLetter, ""]);
+  const user = useUserContext();
+  const [questionCount, setQuestionCount] = useState(1);
+  const [currentStimuli, setCurrentStimuli] = useState(getNextStimuli());
+  const [secondLastStimuli, setSecondLastStimuli] = useState([
+    currentStimuli,
+    "",
+  ]); //FIXME: should only track the second last stimuli
 
-  // TODO: should not be able to have the same number directly after each other (twice in a row)
-  // FIXME: improve naming convention
-  function getRandomLetter() {
+  // FIXME:
+  // - should not be able to have the same number directly after each other (twice in a row)
+  function getNextStimuli() {
     const letters = ["A", "B", "C", "D", "X", "Z"];
     const randomIndex = Math.floor(Math.random() * letters.length);
     return letters[randomIndex];
@@ -25,12 +28,12 @@ const GamePage = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setLetterCache([currentLetter, letterCache[0]]);
-      setCurrentLetter(getRandomLetter());
-      setCount((count) => count + 1);
+      setSecondLastStimuli([currentStimuli, secondLastStimuli[0]]);
+      setCurrentStimuli(getNextStimuli());
+      setQuestionCount((questionCount) => questionCount + 1);
     }, 2500);
 
-    if (user.wrongAnswer >= 2 || count > 15) {
+    if (user.wrongAnswer >= 2 || questionCount > 15) {
       clearInterval(interval);
       sendAnalyticsEvent(user.showAnalytics, "Test completed");
       router.push("/results");
@@ -39,12 +42,14 @@ const GamePage = () => {
     return () => clearInterval(interval);
   });
 
-  // TODO:
+  // FIXME:
   // - button should only push correct answer once per interval
-  // - button should not be clickable on the first itnerval
-  // FIXME: improve naming convention
+  // - button should not be clickable on the first interval
   const handleButtonClick = () => {
-    if (currentLetter === letterCache[0] || currentLetter === letterCache[1]) {
+    if (
+      currentStimuli === secondLastStimuli[0] ||
+      currentStimuli === secondLastStimuli[1]
+    ) {
       user.setCorrectAnswer(user.correctAnswer + 1);
       sendAnalyticsEvent(
         user.showAnalytics,
@@ -71,11 +76,11 @@ const GamePage = () => {
       <div className="w-full h-1/2 max-w-xl -translate-y-7 sm:translate-y-0">
         <div className="flex flex-col-reverse text-center md:flex-row w-full md:justify-between text-slate-900 text-xs sm:text-sm px-8 translate-y-12">
           <p>You have {2 - user.wrongAnswer} chances left</p>
-          <p>{15 - count} questions remaining</p>
+          <p>{15 - questionCount} questions remaining</p>
         </div>
         <div className="flex flex-col h-full min-h-[300px] justify-center items-center gap-10 text-5xl font-bold text-center border-2 bg-thymia-purple bg-opacity-30 200 rounded-xl">
           <p className=" text-9xl" data-testid="visual-stimuli">
-            {currentLetter}
+            {currentStimuli}
           </p>
         </div>
       </div>

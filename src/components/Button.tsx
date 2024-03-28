@@ -9,11 +9,10 @@ export default function Button({
 }) {
   return (
     <button
-      className={`flex justify-center gap-2 rounded-xl border-2 bg-thymia-purple text-white font-bold tracking-widest p-3 transition ease-in-out duration-150 hover:scale-110 ${buttonType}`}
+      className={`flex justify-center gap-2 rounded-xl border-2 bg-thymia-purple text-white font-bold tracking-widest p-3 transition ease-in-out duration-150 hover:scale-105 ${buttonType}`}
       onClick={onClick}
     >
       {text}
     </button>
   );
 }
-

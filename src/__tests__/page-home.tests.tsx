@@ -21,7 +21,7 @@ it("Verifies the rendering of critical UI elements", () => {
 
   const navLogo = screen.getByText("Two-back");
   const navLinks = screen.getByText("by Devon Gifford");
-  const heading = screen.getByText(/a cognitive training exercise/i);
+  const heading = screen.getByText(/welcome to the/i);
   const instructions = screen.getByText("How to play?");
   const toggleLogButton = screen.getByText("Show event logs?");
 

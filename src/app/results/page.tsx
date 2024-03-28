@@ -16,7 +16,7 @@ const ResultsPage = () => {
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-2 justify-center h-[90vh]">
       <Heading
         headingBlack="Hello again"
         headingColor={user.username}
@@ -45,13 +45,13 @@ const ResultsPage = () => {
       <div className="flex flex-col gap-3 pt-5 ">
         <Button text="Try again" onClick={handleRestart} />
 
-        <p className="text-gray-600 text-center">
+        <p className="hidden md:inline-block text-gray-600 text-center">
           Regular practice can lead to improved working memory and attention.
           <br />
           Embrace the process and have fun!
         </p>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -12,24 +12,26 @@ const GamePage = () => {
   const router = useRouter();
   const user = useUserContext();
   const [questionCount, setQuestionCount] = useState(1);
-  const [currentStimuli, setCurrentStimuli] = useState(getNextStimuli());
-  const [secondLastStimuli, setSecondLastStimuli] = useState([
-    currentStimuli,
-    "",
-  ]); //FIXME: should only track the second last stimuli
+  const [currentStimuli, setCurrentStimuli] = useState(() =>
+    getNextStimuli(""),
+  );
+  const [secondLastStimuli, setSecondLastStimuli] = useState("");
+  // const [buttonEnabled, setButtonEnabled] = useState(false);
 
-  // FIXME:
-  // - should not be able to have the same number directly after each other (twice in a row)
-  function getNextStimuli() {
-    const letters = ["A", "B", "C", "D", "X", "Z"];
-    const randomIndex = Math.floor(Math.random() * letters.length);
-    return letters[randomIndex];
+  function getNextStimuli(currentStimuli: string): string {
+    let newStimuli;
+    do {
+      const stimuliList = ["A", "B", "C", "D", "X", "Z"];
+      const randomIndex = Math.floor(Math.random() * stimuliList.length);
+      newStimuli = stimuliList[randomIndex];
+    } while (newStimuli === currentStimuli);
+    return newStimuli;
   }
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setSecondLastStimuli([currentStimuli, secondLastStimuli[0]]);
-      setCurrentStimuli(getNextStimuli());
+      setSecondLastStimuli(currentStimuli);
+      setCurrentStimuli(getNextStimuli(currentStimuli));
       setQuestionCount((questionCount) => questionCount + 1);
     }, 2500);
 

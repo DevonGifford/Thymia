@@ -19,11 +19,8 @@ const GamePage = () => {
   const router = useRouter();
   const user = useUserContext();
   const [questionCount, setQuestionCount] = useState(1);
-
+  const [stimuliHistory, setStimuliHistory] = useState<string[]>([]);
   const [currentStimuli, setCurrentStimuli] = useState(() => getNextStimuli(""));
-  const [lastStimuli, setLastStimuli] = useState("");
-  const [secondLastStimuli, setSecondLastStimuli] = useState("");
-
   const [buttonState, setButtonState] = useState<ButtonState>(ButtonState.Idle);
 
   function getNextStimuli(currentStimuli: string): string {
@@ -38,8 +35,10 @@ const GamePage = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setSecondLastStimuli(lastStimuli);
-      setLastStimuli(currentStimuli);
+      setStimuliHistory((prevHistory) => [
+        prevHistory[prevHistory.length - 1],
+        currentStimuli,
+      ])
       setCurrentStimuli(getNextStimuli(currentStimuli));
       setQuestionCount((questionCount) => questionCount + 1);
       if (questionCount > 1) {
@@ -56,12 +55,12 @@ const GamePage = () => {
     }
 
     return () => clearInterval(interval);
-  }, [questionCount, currentStimuli, lastStimuli, router, user]);
+  }, [questionCount, currentStimuli, stimuliHistory, router, user]);
 
   const handleButtonClick = () => {
     if (
       buttonState === ButtonState.Pending &&
-      currentStimuli === secondLastStimuli
+      currentStimuli === stimuliHistory[0]
     ) {
       setButtonState(ButtonState.Correct);
       user.setCorrectAnswer(user.correctAnswer + 1);

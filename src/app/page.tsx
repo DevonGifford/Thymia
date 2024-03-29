@@ -122,7 +122,7 @@ export default function Home() {
             from two steps back.
           </li>
           <li>
-            The game concludes upon sequence completion or after 2 incorrect
+            The game concludes upon sequence completion or after 3 incorrect
             answers.
           </li>
         </ul>

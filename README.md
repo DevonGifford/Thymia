@@ -52,7 +52,7 @@ Additionally, I implemented error logging, simulating post requests, and added a
 
 ✔ **User Interaction**: Create a React app allowing user name input before starting the 2-back task.
 
-✔ **Task Completion Conditions**: End task after either two errors or displaying 15 letters.
+✔ **Task Completion Conditions**: End task after either three errors or displaying 15 letters.
 
 ✔ **Event Logging**: Capture user interactions as events, mimicking backend interaction.
 

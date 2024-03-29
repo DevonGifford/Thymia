@@ -6,8 +6,6 @@ export const sendAnalyticsEvent = async (
   eventName: string,
 ) => {
   try {
-    console.log("🧪SEND ANALYTICS EVENT");
-
     await axios.post(`api/events`, {
       eventName,
       date: new Date(),

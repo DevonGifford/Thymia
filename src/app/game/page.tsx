@@ -35,10 +35,7 @@ const GamePage = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setStimuliHistory((prevHistory) => [
-        prevHistory[prevHistory.length - 1],
-        currentStimuli,
-      ])
+      setStimuliHistory((prev) => [prev[prev.length - 1], currentStimuli]);
       setCurrentStimuli(getNextStimuli(currentStimuli));
       setQuestionCount((questionCount) => questionCount + 1);
       if (questionCount > 1) {
@@ -64,17 +61,11 @@ const GamePage = () => {
     ) {
       setButtonState(ButtonState.Correct);
       user.setCorrectAnswer(user.correctAnswer + 1);
-      sendAnalyticsEvent(
-        user.showAnalytics,
-        "Attempt logged - Correct Answer ✅",
-      );
+      sendAnalyticsEvent(user.showAnalytics, "Attempt - Correct Answer ✅");
     } else if (buttonState === ButtonState.Pending) {
       setButtonState(ButtonState.Wrong);
       user.setWrongAnswer(user.wrongAnswer + 1);
-      sendAnalyticsEvent(
-        user.showAnalytics,
-        "Attempt logged - Wrong answer ❌",
-      );
+      sendAnalyticsEvent(user.showAnalytics, "Attempt - Wrong answer ❌");
     }
   };
 
@@ -112,8 +103,8 @@ const GamePage = () => {
             buttonState === ButtonState.Correct
               ? "correct"
               : buttonState === ButtonState.Wrong
-                ? "wrong"
-                : undefined
+              ? "wrong"
+              : undefined
           }
         />
       </footer>

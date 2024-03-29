@@ -33,9 +33,9 @@ Additionally, I implemented error logging, simulating post requests, and added a
 <!-- -------------------------------------------------------------------------- -->
 <!-- DEMO IMAGES  -->
 <div align=center>
-<a href='https://incard-technical-assaignment-devon-gifford.vercel.app/' align=center>
+<a href='https://n-game-technical-assignment.vercel.app/' align=center>
+    <img src="./src/assets/GitHub/mobile-demo.png" alt="Demo-Mobile-View" title="Demo-Image-Mobile" width="170" height="255">    
     <img src="./src/assets/GitHub/desktop-demo.png" alt="Demo-Desktop-View" title="Demo-Image-Desktop" width="400" height="250"> 
-    <img src="./src/assets/GitHub/mobile-demo.png" alt="Demo-Mobile-View" title="Demo-Image-Mobile" width="150" height="235">    
 </a>
 </div>
 <br>
@@ -78,21 +78,15 @@ Additionally, I implemented error logging, simulating post requests, and added a
 
 #### Known issues:
 
-- Prevent users from clicking the same letter more than once per new stimulus.
+💥 Implement a separate state for users who did not complete the test (DNF) due to more than two mistakes.
 
-- Implement a separate state for users who did not complete the test (DNF) due to more than two mistakes.
-
-- Global state is not persisted, page reloads will reset any global variables.
+💥 Global state is not persisted, page reloads will reset any global variables.
 
 #### Potential improvements:
 
-- Enhance visual appeal and user experience of the application.
+💥 Add brief blank intervals between each stimuli.
 
-- Add brief blank intervals between each letter.
-
-- Add timer display or countdown feature for each presented letter.
-
-- Add an immediate ui feedback for correct and incorrect answers.
+💥 Add timer display or countdown feature for each presented letter.
 
 <br/>
 

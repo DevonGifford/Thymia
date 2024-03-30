@@ -60,27 +60,15 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col gap-10 md:gap-16 justify-center items-center">
-      <div>
-        <Heading headingBlack="Welcome to the" headingColor="2-back game" />
-        <section className="flex flex-col text-center gap-1 italic text-gray-500 pt-4">
-          <p>
-            The 2-Back game is a cognitive training exercise designed to enhance
-            working memory, attention, and pattern recognition skills.
-          </p>
-          <p>
-            It is part of a broader category of brain training games aimed at
-            boosting cognitive functions.
-          </p>
-        </section>
-      </div>
+    <div className="flex flex-col gap-4 md:gap-16 justify-center items-center h-[70vh] md:h-auto">
+      <Heading headingBlack="Welcome to the" headingColor="2-back game" />
 
       <article>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center gap-2"
         >
-          <div className="flex flex-col md:flex-row justify-start gap-5">
+          <div className="flex flex-col md:flex-row justify-start gap-2 md:gap-5">
             <input
               type="text"
               placeholder="Enter your name..."
@@ -101,7 +89,7 @@ export default function Home() {
           </div>
         </form>
 
-        <aside className="flex flex-row w-full text-thymia-purple items-center justify-center text-center pt-3">
+        <aside className="flex flex-row w-full text-thymia-purple items-center justify-center text-center md:pt-3">
           <label className="flex cursor-pointer gap-2 items-center justify-center w-full">
             <span className="sm:text-left">
               {user.showAnalytics ? <Eye /> : <EyeOff />}
@@ -120,23 +108,22 @@ export default function Home() {
         </aside>
       </article>
 
-      <section className="flex flex-col gap-6 text-center border-2 border-thymia-purple rounded-xl border-opacity-40 bg-thymia-purple bg-opacity-20 p-7 sm:mx-10 lg:mx-40 shadow-slate-500 shadow-2xl">
+      <section className="hidden md:flex flex-col gap-4 text-center border-2 border-thymia-purple rounded-xl border-opacity-40 bg-thymia-purple bg-opacity-20 p-7 sm:mx-10 shadow-slate-500 shadow-2xl">
         <h3 className="text-2xl md:text-3xl font-bold text-thymia-purple font-thymia-title">
           How to play?
         </h3>
-        <ul className="flex flex-col gap-5 italic text-gray-500 w-full max-w-5xl">
+        <ul className="flex flex-col gap-2 italic text-gray-500 w-full max-w-5xl">
           <li>
-            In this game, you will be presented with a sequence of stimuli, in
-            this case a series of letters presented every 3000 milliseconds.
+            You&apos;ll be presented a sequence of stimuli: a series of letters
+            shown every 3000 milliseconds.
           </li>
           <li>
-            You are required to identify whether the current stimulus matches
-            the one that appeared two steps back in the sequence. If the current
-            letter you are seeing is match click the button.
+            Your challenge is to discern if the current letter matches the one
+            from two steps back.
           </li>
           <li>
-            The game will end either at the end of the sequence or after 2
-            incorrect answers.
+            The game concludes upon sequence completion or after 2 incorrect
+            answers.
           </li>
         </ul>
       </section>

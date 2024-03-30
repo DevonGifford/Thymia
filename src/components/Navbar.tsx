@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   BrainCog,
   ExternalLink,
-  Github,
+  GithubIcon,
   Linkedin,
   UserSquare,
 } from "lucide-react";
@@ -13,7 +13,7 @@ export default function NavBar() {
       <div className="flex gap-8 ">
         <Link
           href="/"
-          className="flex flex-row gap-2 transition ease-in-out duration-150 hover:scale-110 text-thymia-purple"
+          className="flex text-nowrap flex-row gap-2 text-thymia-purple"
         >
           <BrainCog size={32} className=" translate-y-1" />
           <p className="text-3xl font-bold font-thymia-title italic">
@@ -26,7 +26,7 @@ export default function NavBar() {
           href="https://github.com/DevonGifford/nGame--TechnicalAssignment"
           className="flex justify-end items-center"
         >
-          <div className="hidden sm:flex flex-row gap-2 transition ease-in-out duration-150 hover:scale-110">
+          <div className="hidden sm:flex flex-row gap-2 transition ease-in-out duration-150 hover:scale-105">
             <span className="block text-sm text-gray-600">
               Project Source Code
             </span>
@@ -58,7 +58,7 @@ export default function NavBar() {
             href="https://github.com/DevonGifford"
             className="transition ease-in-out duration-150 hover:scale-110"
           >
-            <Github size={20} />
+            <GithubIcon size={20} />
           </Link>
         </div>
       </div>

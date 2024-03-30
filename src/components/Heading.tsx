@@ -12,18 +12,18 @@ export default function Heading({
   subHeadingColor,
 }: HeadingProps) {
   return (
-    <header className="flex flex-col max-w-5xl text-center ">
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold pb-2">
+    <header className="flex flex-col max-w-5xl text-center gap-2">
+      <h1 className="text-4xl font-bold">
         {headingBlack}{" "}
-        <span className="text-5xl md:text-6xl lg:text-7xl text-thymia-purple font-thymia-title italic">
+        <span className="text-nowrap text-5xl text-thymia-purple font-thymia-title italic">
           {" "}
           {headingColor}
         </span>
       </h1>
       {subHeadingBlack && (
-        <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold">
+        <h2 className="hidden md:inline-block text-xl font-semibold">
           {subHeadingBlack}{" "}
-          <span className="text-2xl md:text-3xl lg:text-4xl text-thymia-purple font-thymia-title italic">
+          <span className="text-2xl text-thymia-purple font-thymia-title italic">
             {" "}
             {subHeadingColor}
           </span>

@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <UserContextProvider defaultValues={defaultContextValues}>
           <NavBar />
-          <main className="flex h-full md:h-screen py-24 sm:py-32 justify-center flex-col gap-5 md:gap-10 mx-5 md:mx-20 items-center">
+          <main className="flex h-screen justify-center flex-col mx-5 md:mx-20 items-center">
             {children}
           </main>
         </UserContextProvider>

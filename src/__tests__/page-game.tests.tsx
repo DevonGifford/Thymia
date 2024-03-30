@@ -14,7 +14,6 @@ jest.mock("next/navigation", () => ({
   }),
 }));
 
-
 jest.useFakeTimers();
 
 const validLetters = ["A", "B", "C", "D", "X", "Z"];
@@ -27,10 +26,10 @@ it("Verifies the rendering of critical UI elements", () => {
   const navLinks = screen.getByText("by Devon Gifford");
   const heading = screen.getByText(/your test is starting/i);
   const instructionsCheck = screen.getByText(
-    /below if you have seen this image/i
+    /below if you have seen this image/i,
   );
-  const basicGameCheck = screen.getByText("You have 2 chances left");
-  const buttonCheck = screen.getByText("Seen it 👀");
+  const basicGameCheck = screen.getByText("You have 3 chances left");
+  const buttonCheck = screen.getByText(/wait/i);
 
   //Assert
   expect(navLogo).toBeInTheDocument();
@@ -53,7 +52,7 @@ describe("Quiz Screen Rendering", () => {
       expect(validLetters).toContain(letter);
     } else {
       throw new Error(
-        "Visual stimuli not found or contains an invalid letter."
+        "Visual stimuli not found or contains an invalid letter.",
       );
     }
   });
@@ -62,11 +61,10 @@ describe("Quiz Screen Rendering", () => {
     //Assemble
     customRender(<GamePage />);
 
-    expect(screen.getByText(/You have 2 chances left/i)).toBeInTheDocument();
+    expect(screen.getByText(/You have 3 chances left/i)).toBeInTheDocument();
     expect(screen.getByText(/14 questions remaining/i)).toBeInTheDocument();
   });
 
-  // NOTE: flakey test, requires fix in app
   it("FLAKEY - should display quiz letter after the first interval", () => {
     //Assemble
     customRender(<GamePage />);

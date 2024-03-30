@@ -1,19 +1,37 @@
-export default function Button({
-  text,
-  buttonType,
-  onClick,
-}: {
+import React from "react";
+
+interface ButtonProps {
   text: string;
   buttonType?: string;
   onClick?: () => void;
-}) {
-  return (
-    <button
-      className={`flex justify-center gap-2 rounded-xl border-2 bg-thymia-purple text-white font-bold tracking-widest p-3 transition ease-in-out duration-150 hover:scale-110 ${buttonType}`}
-      onClick={onClick}
-    >
-      {text}
-    </button>
-  );
+  disabled?: boolean;
+  answerStatus?: "correct" | "wrong" | undefined;
+  pendingText?: string;
 }
 
+const Button: React.FC<ButtonProps> = ({
+  text,
+  buttonType,
+  onClick,
+  disabled,
+  answerStatus,
+  pendingText = "Wait ✋",
+}: ButtonProps) => {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`
+        flex justify-center gap-2 rounded-xl border-2 bg-thymia-purple text-white font-bold tracking-widest p-3 transition ease-in-out duration-150 hover:scale-105 
+        ${buttonType || ""}
+        ${disabled ? "opacity-50 cursor-not-allowed" : ""} 
+        ${answerStatus === "correct" ? "correct-answer" : ""} 
+        ${answerStatus === "wrong" ? "wrong-answer" : ""}
+      `}
+    >
+      {disabled ? pendingText : text}
+    </button>
+  );
+};
+
+export default Button;

@@ -5,7 +5,8 @@ interface ButtonProps {
   buttonType?: string;
   onClick?: () => void;
   disabled?: boolean;
-  answerStatus?: "correct" | "wrong";
+  answerStatus?: "correct" | "wrong" | undefined;
+  pendingText?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -14,6 +15,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   disabled,
   answerStatus,
+  pendingText = "Wait ✋",
 }: ButtonProps) => {
   return (
     <button
@@ -21,13 +23,13 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={`
         flex justify-center gap-2 rounded-xl border-2 bg-thymia-purple text-white font-bold tracking-widest p-3 transition ease-in-out duration-150 hover:scale-105 
-        ${buttonType || ""} 
+        ${buttonType || ""}
         ${disabled ? "opacity-50 cursor-not-allowed" : ""} 
         ${answerStatus === "correct" ? "correct-answer" : ""} 
         ${answerStatus === "wrong" ? "wrong-answer" : ""}
       `}
     >
-      {disabled ? "Wait ✋" : text}
+      {disabled ? pendingText : text}
     </button>
   );
 };

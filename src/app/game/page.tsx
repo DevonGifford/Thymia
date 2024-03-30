@@ -8,16 +8,23 @@ import { sendAnalyticsEvent } from "@/src/utils/analytics";
 import Button from "../../components/Button";
 import Heading from "../../components/Heading";
 
+enum ButtonState {
+  Idle = "idle",
+  Pending = "pending",
+  Correct = "correct",
+  Wrong = "wrong",
+}
+
 const GamePage = () => {
   const router = useRouter();
   const user = useUserContext();
   const [questionCount, setQuestionCount] = useState(1);
+
   const [currentStimuli, setCurrentStimuli] = useState(() => getNextStimuli(""));
   const [lastStimuli, setLastStimuli] = useState("");
   const [secondLastStimuli, setSecondLastStimuli] = useState("");
-  const [answerStatus, setAnswerStatus] = useState<"correct" | "wrong">();
-  const [buttonEnabled, setButtonEnabled] = useState<boolean>(false);
-  const [buttonClicked, setButtonClicked] = useState<boolean>(false);
+
+  const [buttonState, setButtonState] = useState<ButtonState>(ButtonState.Idle);
 
   function getNextStimuli(currentStimuli: string): string {
     let newStimuli;
@@ -35,10 +42,10 @@ const GamePage = () => {
       setLastStimuli(currentStimuli);
       setCurrentStimuli(getNextStimuli(currentStimuli));
       setQuestionCount((questionCount) => questionCount + 1);
-      setButtonClicked(false);
-      setAnswerStatus(undefined);
       if (questionCount > 1) {
-        setButtonEnabled(true);
+        setButtonState(ButtonState.Pending);
+      } else {
+        setButtonState(ButtonState.Idle);
       }
     }, 2500);
 
@@ -53,27 +60,23 @@ const GamePage = () => {
 
   const handleButtonClick = () => {
     if (
-      buttonEnabled &&
-      !buttonClicked &&
+      buttonState === ButtonState.Pending &&
       currentStimuli === secondLastStimuli
     ) {
-      setButtonClicked(true);
+      setButtonState(ButtonState.Correct);
       user.setCorrectAnswer(user.correctAnswer + 1);
-      setAnswerStatus("correct");
       sendAnalyticsEvent(
         user.showAnalytics,
         "Attempt logged - Correct Answer ✅",
       );
-    } else if (buttonEnabled && !buttonClicked) {
-      setButtonClicked(true);
+    } else if (buttonState === ButtonState.Pending) {
+      setButtonState(ButtonState.Wrong);
       user.setWrongAnswer(user.wrongAnswer + 1);
-      setAnswerStatus("wrong");
       sendAnalyticsEvent(
         user.showAnalytics,
         "Attempt logged - Wrong answer ❌",
       );
     }
-    setButtonEnabled(false);
   };
 
   return (
@@ -97,18 +100,24 @@ const GamePage = () => {
         </div>
       </div>
 
-      <div className="flex flex-col -translate-y-12 sm:translate-y-0 pt-12 md:pt-0">
+      <footer className="flex flex-col -translate-y-12 sm:translate-y-0 pt-12 md:pt-0">
         <h2 className="sm:mt-4 text-center text-gray-600">
           Click below if you have seen this image in the most recent 2 images:
         </h2>
 
         <Button
-          text="Seen it? 👀"
+          text={buttonState === ButtonState.Pending ? "Seen it? 👀" : "Wait ✋"}
           onClick={handleButtonClick}
-          disabled={!buttonEnabled}
-          answerStatus={answerStatus}
+          disabled={buttonState === ButtonState.Idle}
+          answerStatus={
+            buttonState === ButtonState.Correct
+              ? "correct"
+              : buttonState === ButtonState.Wrong
+                ? "wrong"
+                : undefined
+          }
         />
-      </div>
+      </footer>
     </div>
   );
 };

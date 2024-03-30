@@ -28,8 +28,8 @@ it("Verifies the rendering of critical UI elements", () => {
   const instructionsCheck = screen.getByText(
     /below if you have seen this image/i,
   );
-  const basicGameCheck = screen.getByText("You have 2 chances left");
-  const buttonCheck = screen.getByText("Seen it 👀");
+  const basicGameCheck = screen.getByText("You have 3 chances left");
+  const buttonCheck = screen.getByText(/wait/i);
 
   //Assert
   expect(navLogo).toBeInTheDocument();
@@ -61,7 +61,7 @@ describe("Quiz Screen Rendering", () => {
     //Assemble
     customRender(<GamePage />);
 
-    expect(screen.getByText(/You have 2 chances left/i)).toBeInTheDocument();
+    expect(screen.getByText(/You have 3 chances left/i)).toBeInTheDocument();
     expect(screen.getByText(/14 questions remaining/i)).toBeInTheDocument();
   });
 

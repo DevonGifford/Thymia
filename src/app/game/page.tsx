@@ -15,8 +15,10 @@ const GamePage = () => {
   const [currentStimuli, setCurrentStimuli] = useState(() =>
     getNextStimuli(""),
   );
+  const [lastStimuli, setLastStimuli] = useState("");
   const [secondLastStimuli, setSecondLastStimuli] = useState("");
-  // const [buttonEnabled, setButtonEnabled] = useState(false);
+  const [buttonEnabled, setButtonEnabled] = useState<boolean>(false);
+  const [buttonClicked, setButtonClicked] = useState<boolean>(false);
 
   function getNextStimuli(currentStimuli: string): string {
     let newStimuli;
@@ -30,9 +32,14 @@ const GamePage = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setSecondLastStimuli(currentStimuli);
+      setSecondLastStimuli(lastStimuli);
+      setLastStimuli(currentStimuli);
       setCurrentStimuli(getNextStimuli(currentStimuli));
       setQuestionCount((questionCount) => questionCount + 1);
+      setButtonClicked(false);
+      if (questionCount > 1) {
+        setButtonEnabled(true);
+      }
     }, 2500);
 
     if (user.wrongAnswer >= 2 || questionCount > 15) {
@@ -42,26 +49,26 @@ const GamePage = () => {
     }
 
     return () => clearInterval(interval);
-  });
+  }, [questionCount, currentStimuli, lastStimuli, router, user]);
 
-  // FIXME:
-  // - button should only push correct answer once per interval
-  // - button should not be clickable on the first interval
   const handleButtonClick = () => {
     if (
-      currentStimuli === secondLastStimuli[0] ||
-      currentStimuli === secondLastStimuli[1]
+      buttonEnabled &&
+      !buttonClicked &&
+      currentStimuli === secondLastStimuli
     ) {
+      setButtonClicked(true);
       user.setCorrectAnswer(user.correctAnswer + 1);
       sendAnalyticsEvent(
         user.showAnalytics,
-        "Attempt button clicked - Correct Answer ✅",
+        "Attempt logged - Correct Answer ✅",
       );
-    } else {
+    } else if (buttonEnabled && !buttonClicked) {
+      setButtonClicked(true);
       user.setWrongAnswer(user.wrongAnswer + 1);
       sendAnalyticsEvent(
         user.showAnalytics,
-        "Attempt button clicked - Wrong answer ❌",
+        "Attempt logged - Wrong answer ❌",
       );
     }
   };
@@ -92,7 +99,11 @@ const GamePage = () => {
           Click below if you have seen this image in the most recent 2 images:
         </h2>
 
-        <Button text="Seen it 👀" onClick={handleButtonClick} />
+        <Button
+          text="Seen it? 👀"
+          onClick={handleButtonClick}
+          disabled={!buttonEnabled}
+        />
       </div>
     </div>
   );

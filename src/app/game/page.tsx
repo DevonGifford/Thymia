@@ -12,11 +12,10 @@ const GamePage = () => {
   const router = useRouter();
   const user = useUserContext();
   const [questionCount, setQuestionCount] = useState(1);
-  const [currentStimuli, setCurrentStimuli] = useState(() =>
-    getNextStimuli(""),
-  );
+  const [currentStimuli, setCurrentStimuli] = useState(() => getNextStimuli(""));
   const [lastStimuli, setLastStimuli] = useState("");
   const [secondLastStimuli, setSecondLastStimuli] = useState("");
+  const [answerStatus, setAnswerStatus] = useState<"correct" | "wrong">();
   const [buttonEnabled, setButtonEnabled] = useState<boolean>(false);
   const [buttonClicked, setButtonClicked] = useState<boolean>(false);
 
@@ -37,12 +36,13 @@ const GamePage = () => {
       setCurrentStimuli(getNextStimuli(currentStimuli));
       setQuestionCount((questionCount) => questionCount + 1);
       setButtonClicked(false);
+      setAnswerStatus(undefined);
       if (questionCount > 1) {
         setButtonEnabled(true);
       }
     }, 2500);
 
-    if (user.wrongAnswer >= 2 || questionCount > 15) {
+    if (user.wrongAnswer >= 3 || questionCount > 15) {
       clearInterval(interval);
       sendAnalyticsEvent(user.showAnalytics, "Test completed");
       router.push("/results");
@@ -59,6 +59,7 @@ const GamePage = () => {
     ) {
       setButtonClicked(true);
       user.setCorrectAnswer(user.correctAnswer + 1);
+      setAnswerStatus("correct");
       sendAnalyticsEvent(
         user.showAnalytics,
         "Attempt logged - Correct Answer ✅",
@@ -66,11 +67,13 @@ const GamePage = () => {
     } else if (buttonEnabled && !buttonClicked) {
       setButtonClicked(true);
       user.setWrongAnswer(user.wrongAnswer + 1);
+      setAnswerStatus("wrong");
       sendAnalyticsEvent(
         user.showAnalytics,
         "Attempt logged - Wrong answer ❌",
       );
     }
+    setButtonEnabled(false);
   };
 
   return (
@@ -82,12 +85,12 @@ const GamePage = () => {
         subHeadingColor="right now..."
       />
 
-      <div className="w-full h-1/2 max-w-xl -translate-y-7 sm:translate-y-0">
+      <div className="w-full h-[300px] max-w-xl -translate-y-7 sm:translate-y-0">
         <div className="flex flex-col-reverse text-center md:flex-row w-full md:justify-between text-slate-900 text-xs sm:text-sm px-8 translate-y-12">
-          <p>You have {2 - user.wrongAnswer} chances left</p>
+          <p>You have {3 - user.wrongAnswer} chances left</p>
           <p>{15 - questionCount} questions remaining</p>
         </div>
-        <div className="flex flex-col h-full min-h-[300px] justify-center items-center gap-10 text-5xl font-bold text-center border-2 bg-thymia-purple bg-opacity-30 200 rounded-xl">
+        <div className="flex flex-col h-[300px] justify-center items-center gap-10 text-5xl font-bold text-center border-2 bg-thymia-purple bg-opacity-30 200 rounded-xl">
           <p className=" text-9xl" data-testid="visual-stimuli">
             {currentStimuli}
           </p>
@@ -103,6 +106,7 @@ const GamePage = () => {
           text="Seen it? 👀"
           onClick={handleButtonClick}
           disabled={!buttonEnabled}
+          answerStatus={answerStatus}
         />
       </div>
     </div>

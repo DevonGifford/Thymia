@@ -23,6 +23,24 @@ const GamePage = () => {
   const [currentStimuli, setCurrentStimuli] = useState(() => getNextStimuli(""));
   const [buttonState, setButtonState] = useState<ButtonState>(ButtonState.Idle);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStimuliHistory((prev) => [prev[prev.length - 1], currentStimuli]);
+      setCurrentStimuli(getNextStimuli(currentStimuli));
+      setQuestionCount((questionCount) => questionCount + 1);
+      setButtonState(questionCount < 1 ? ButtonState.Idle : ButtonState.Pending);
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, [questionCount, currentStimuli]);
+
+  useEffect(() => {
+    if (user.wrongAnswer >= 3 || questionCount > 15) {
+      sendAnalyticsEvent(user.showAnalytics, "Test completed");
+      router.push("/results");
+    }
+  }, [questionCount, user, router])
+
   function getNextStimuli(currentStimuli: string): string {
     let newStimuli;
     do {
@@ -32,27 +50,6 @@ const GamePage = () => {
     } while (newStimuli === currentStimuli);
     return newStimuli;
   }
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setStimuliHistory((prev) => [prev[prev.length - 1], currentStimuli]);
-      setCurrentStimuli(getNextStimuli(currentStimuli));
-      setQuestionCount((questionCount) => questionCount + 1);
-      if (questionCount > 1) {
-        setButtonState(ButtonState.Pending);
-      } else {
-        setButtonState(ButtonState.Idle);
-      }
-    }, 2500);
-
-    if (user.wrongAnswer >= 3 || questionCount > 15) {
-      clearInterval(interval);
-      sendAnalyticsEvent(user.showAnalytics, "Test completed");
-      router.push("/results");
-    }
-
-    return () => clearInterval(interval);
-  }, [questionCount, currentStimuli, stimuliHistory, router, user]);
 
   const handleButtonClick = () => {
     if (

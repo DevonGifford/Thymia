@@ -65,7 +65,7 @@ describe("Quiz Screen Rendering", () => {
     expect(screen.getByText(/14 questions remaining/i)).toBeInTheDocument();
   });
 
-  it("FLAKEY - should display quiz letter after the first interval", () => {
+  it("second stimuli should be present and not match first stimuli after the first interval", () => {
     //Assemble
     customRender(<GamePage />);
     const visualStimuli = screen.queryByTestId("visual-stimuli");

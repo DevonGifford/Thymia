@@ -10,7 +10,7 @@ import React, {
 } from "react";
 
 export type UserContextType = {
-  username?: string | undefined;
+  username: string | undefined;
   setUsername: Dispatch<SetStateAction<string | undefined>>;
   correctAnswer: number;
   setCorrectAnswer: Dispatch<SetStateAction<number>>;
@@ -38,7 +38,9 @@ interface UserContextProviderProps {
   defaultValues: UserContextType;
 }
 
-export const UserContext = createContext<UserContextType | undefined>(undefined);
+export const UserContext = createContext<UserContextType | undefined>(
+  undefined,
+);
 
 export function useUserContext() {
   const context = useContext(UserContext);
@@ -53,10 +55,18 @@ const UserContextProvider = ({
   defaultValues,
 }: UserContextProviderProps) => {
   const router = useRouter();
-  const [username, setUsername] = useState<string | undefined>(defaultValues.username);
-  const [correctAnswer, setCorrectAnswer] = useState<number>(defaultValues.correctAnswer);
-  const [wrongAnswer, setWrongAnswer] = useState<number>(defaultValues.wrongAnswer);
-  const [showAnalytics, setShowAnalytics] = useState<boolean>(defaultValues.showAnalytics);
+  const [username, setUsername] = useState<string | undefined>(
+    defaultValues.username,
+  );
+  const [correctAnswer, setCorrectAnswer] = useState<number>(
+    defaultValues.correctAnswer,
+  );
+  const [wrongAnswer, setWrongAnswer] = useState<number>(
+    defaultValues.wrongAnswer,
+  );
+  const [showAnalytics, setShowAnalytics] = useState<boolean>(
+    defaultValues.showAnalytics,
+  );
 
   const resetGame = () => {
     setCorrectAnswer(0);

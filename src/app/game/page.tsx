@@ -8,12 +8,14 @@ import { sendAnalyticsEvent } from "@/src/utils/analytics";
 import Button from "../../components/Button";
 import Heading from "../../components/Heading";
 
-enum ButtonState {
-  Idle = "idle",
-  Pending = "pending",
-  Correct = "correct",
-  Wrong = "wrong",
-}
+const buttonStates = {
+  Idle: "idle",
+  Pending: "pending",
+  Correct: "correct",
+  Wrong: "wrong",
+} as const;
+
+type ButtonState = (typeof buttonStates)[keyof typeof buttonStates];
 
 const GamePage = () => {
   const router = useRouter();
@@ -23,7 +25,9 @@ const GamePage = () => {
   const [currentStimuli, setCurrentStimuli] = useState(() =>
     getNextStimuli(""),
   );
-  const [buttonState, setButtonState] = useState<ButtonState>(ButtonState.Idle);
+  const [buttonState, setButtonState] = useState<ButtonState>(
+    buttonStates.Idle,
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,7 +35,7 @@ const GamePage = () => {
       setCurrentStimuli(getNextStimuli(currentStimuli));
       setQuestionCount((questionCount) => questionCount + 1);
       setButtonState(
-        questionCount < 1 ? ButtonState.Idle : ButtonState.Pending,
+        questionCount < 1 ? buttonStates.Idle : buttonStates.Pending,
       );
     }, 2500);
 
@@ -57,14 +61,14 @@ const GamePage = () => {
 
   const handleButtonClick = () => {
     if (
-      buttonState === ButtonState.Pending &&
+      buttonState === buttonStates.Pending &&
       currentStimuli === stimuliHistory[0]
     ) {
-      setButtonState(ButtonState.Correct);
+      setButtonState(buttonStates.Correct);
       user.setCorrectAnswer(user.correctAnswer + 1);
       sendAnalyticsEvent(user.showAnalytics, "Attempt - Correct Answer ✅");
-    } else if (buttonState === ButtonState.Pending) {
-      setButtonState(ButtonState.Wrong);
+    } else if (buttonState === buttonStates.Pending) {
+      setButtonState(buttonStates.Wrong);
       user.setWrongAnswer(user.wrongAnswer + 1);
       sendAnalyticsEvent(user.showAnalytics, "Attempt - Wrong answer ❌");
     }
@@ -97,13 +101,15 @@ const GamePage = () => {
         </h2>
 
         <Button
-          text={buttonState === ButtonState.Pending ? "Seen it? 👀" : "Wait ✋"}
+          text={
+            buttonState === buttonStates.Pending ? "Seen it? 👀" : "Wait ✋"
+          }
           onClick={handleButtonClick}
-          disabled={buttonState === ButtonState.Idle}
+          disabled={buttonState === buttonStates.Idle}
           answerStatus={
-            buttonState === ButtonState.Correct
+            buttonState === buttonStates.Correct
               ? "correct"
-              : buttonState === ButtonState.Wrong
+              : buttonState === buttonStates.Wrong
                 ? "wrong"
                 : undefined
           }

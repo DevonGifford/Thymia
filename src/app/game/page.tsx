@@ -20,7 +20,9 @@ const GamePage = () => {
   const user = useUserContext();
   const [questionCount, setQuestionCount] = useState(1);
   const [stimuliHistory, setStimuliHistory] = useState<string[]>([]);
-  const [currentStimuli, setCurrentStimuli] = useState(() => getNextStimuli(""));
+  const [currentStimuli, setCurrentStimuli] = useState(() =>
+    getNextStimuli(""),
+  );
   const [buttonState, setButtonState] = useState<ButtonState>(ButtonState.Idle);
 
   useEffect(() => {
@@ -28,7 +30,9 @@ const GamePage = () => {
       setStimuliHistory((prev) => [prev[prev.length - 1], currentStimuli]);
       setCurrentStimuli(getNextStimuli(currentStimuli));
       setQuestionCount((questionCount) => questionCount + 1);
-      setButtonState(questionCount < 1 ? ButtonState.Idle : ButtonState.Pending);
+      setButtonState(
+        questionCount < 1 ? ButtonState.Idle : ButtonState.Pending,
+      );
     }, 2500);
 
     return () => clearInterval(interval);
@@ -39,7 +43,7 @@ const GamePage = () => {
       sendAnalyticsEvent(user.showAnalytics, "Test completed");
       router.push("/results");
     }
-  }, [questionCount, user, router])
+  }, [questionCount, user, router]);
 
   function getNextStimuli(currentStimuli: string): string {
     let newStimuli;
@@ -89,7 +93,7 @@ const GamePage = () => {
 
       <footer className="flex flex-col -translate-y-12 sm:translate-y-0 pt-12 md:pt-0">
         <h2 className="sm:mt-4 text-center text-gray-600">
-          Click below if you have seen this image in the most recent 2 images:
+          Click if you recognize this image from two images ago:
         </h2>
 
         <Button
@@ -100,8 +104,8 @@ const GamePage = () => {
             buttonState === ButtonState.Correct
               ? "correct"
               : buttonState === ButtonState.Wrong
-              ? "wrong"
-              : undefined
+                ? "wrong"
+                : undefined
           }
         />
       </footer>

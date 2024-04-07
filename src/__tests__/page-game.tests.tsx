@@ -26,7 +26,7 @@ it("Verifies the rendering of critical UI elements", () => {
   const navLinks = screen.getByText("by Devon Gifford");
   const heading = screen.getByText(/your test is starting/i);
   const instructionsCheck = screen.getByText(
-    /below if you have seen this image/i,
+    /if you recognize this image from two images ago/i,
   );
   const basicGameCheck = screen.getByText("You have 3 chances left");
   const buttonCheck = screen.getByText(/wait/i);

@@ -33,7 +33,6 @@ it("Verifies the rendering of critical UI elements", () => {
 });
 
 describe("Form Submission Tests", () => {
-  //NOTE: this test is causing console logs that I dont understand.
   it("Valid Username - triggers route change to game page ", async () => {
     //Assemble
     customRender(<Home />);
@@ -98,7 +97,6 @@ describe("Form Submission Tests", () => {
   });
 });
 
-// NOTE: need to further research the reason this is required ...
 window.matchMedia = jest.fn().mockReturnValue({
   matches: false,
   addListener: jest.fn(),

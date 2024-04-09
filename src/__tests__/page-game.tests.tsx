@@ -26,7 +26,7 @@ it("Verifies the rendering of critical UI elements", () => {
   const navLinks = screen.getByText("by Devon Gifford");
   const heading = screen.getByText(/your test is starting/i);
   const instructionsCheck = screen.getByText(
-    /below if you have seen this image/i,
+    /if you recognize this image from two images ago/i,
   );
   const basicGameCheck = screen.getByText("You have 3 chances left");
   const buttonCheck = screen.getByText(/wait/i);
@@ -65,7 +65,7 @@ describe("Quiz Screen Rendering", () => {
     expect(screen.getByText(/14 questions remaining/i)).toBeInTheDocument();
   });
 
-  it("FLAKEY - should display quiz letter after the first interval", () => {
+  it("second stimuli should be present and not match first stimuli after the first interval", () => {
     //Assemble
     customRender(<GamePage />);
     const visualStimuli = screen.queryByTestId("visual-stimuli");

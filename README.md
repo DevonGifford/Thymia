@@ -4,7 +4,7 @@
 <!-- HEADING STUFF  -->
 <div align="center">
   <h2>Take-Home Assessment</h2>
-  <h4>Frontend NextJs app handeling 2-back memory game<h4>
+  <h4>NextJs app handling 2-back memory game<h4>
   <h3> 
     <a href='https://n-game-technical-assignment.vercel.app/', target='_blank'>
       <h5>live demo ↗</h5>
@@ -72,21 +72,15 @@ Additionally, I implemented error logging, simulating post requests, and added a
 
 <!-- -------------------------------------------------------------------------- -->
 
-### 🎯 Known issues & potential improvements:
+### 🎯 Future potential improvements:
 
 ---
 
-#### Known issues:
+💥 Implement a feature to track missed correct answers by the user.
 
-💥 Implement a separate state for users who did not complete the test (DNF) due to more than two mistakes.
+💥 Introduce brief blank intervals and/or card animations between each stimulus.
 
-💥 Global state is not persisted, page reloads will reset any global variables.
-
-#### Potential improvements:
-
-💥 Add brief blank intervals between each stimuli.
-
-💥 Add timer display or countdown feature for each presented letter.
+💥 Enhance UX by integrating a timer display or countdown feature for each presented stimulus.
 
 <br/>
 
